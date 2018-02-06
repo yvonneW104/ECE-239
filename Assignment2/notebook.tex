@@ -1,0 +1,863 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{softmax}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{this-is-the-softmax-workbook-for-ece-239as-assignment-2}{%
+\subsection{This is the softmax workbook for ECE 239AS Assignment
+\#2}\label{this-is-the-softmax-workbook-for-ece-239as-assignment-2}}
+
+Please follow the notebook linearly to implement a softmax classifier.
+
+Please print out the workbook entirely when completed.
+
+We thank Serena Yeung \& Justin Johnson for permission to use code
+written for the CS 231n class (cs231n.stanford.edu). These are the
+functions in the cs231n folders and code in the jupyer notebook to
+preprocess and show the images. The classifiers used are based off of
+code prepared for CS 231n as well.
+
+The goal of this workbook is to give you experience with training a
+softmax classifier.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{cs231n}\PY{n+nn}{.}\PY{n+nn}{data\PYZus{}utils} \PY{k}{import} \PY{n}{load\PYZus{}CIFAR10}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{o}{\PYZpc{}}\PY{k}{load\PYZus{}ext} autoreload
+        \PY{o}{\PYZpc{}}\PY{k}{autoreload} 2
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k}{def} \PY{n+nf}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{o}{=}\PY{l+m+mi}{49000}\PY{p}{,} \PY{n}{num\PYZus{}validation}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{num\PYZus{}test}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{num\PYZus{}dev}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    Load the CIFAR\PYZhy{}10 dataset from disk and perform preprocessing to prepare}
+        \PY{l+s+sd}{    it for the linear classifier. These are the same steps as we used for the}
+        \PY{l+s+sd}{    SVM, but condensed to a single function.  }
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{} Load the raw CIFAR\PYZhy{}10 data}
+            \PY{n}{cifar10\PYZus{}dir} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cifar\PYZhy{}10\PYZhy{}batches\PYZhy{}py}\PY{l+s+s1}{\PYZsq{}}
+            \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{load\PYZus{}CIFAR10}\PY{p}{(}\PY{n}{cifar10\PYZus{}dir}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} subsample the data}
+            \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{,} \PY{n}{num\PYZus{}training} \PY{o}{+} \PY{n}{num\PYZus{}validation}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}val} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{mask} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}test}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{choice}\PY{p}{(}\PY{n}{num\PYZus{}training}\PY{p}{,} \PY{n}{num\PYZus{}dev}\PY{p}{,} \PY{n}{replace}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+            \PY{n}{X\PYZus{}dev} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            \PY{n}{y\PYZus{}dev} \PY{o}{=} \PY{n}{y\PYZus{}train}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+            
+            \PY{c+c1}{\PYZsh{} Preprocessing: reshape the image data into rows}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            \PY{n}{X\PYZus{}dev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{reshape}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Normalize the data: subtract the mean image}
+            \PY{n}{mean\PYZus{}image} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{)}
+            \PY{n}{X\PYZus{}train} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            \PY{n}{X\PYZus{}val} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            \PY{n}{X\PYZus{}test} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            \PY{n}{X\PYZus{}dev} \PY{o}{\PYZhy{}}\PY{o}{=} \PY{n}{mean\PYZus{}image}
+            
+            \PY{c+c1}{\PYZsh{} add bias dimension and transform into columns}
+            \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{X\PYZus{}val} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            \PY{n}{X\PYZus{}dev} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{hstack}\PY{p}{(}\PY{p}{[}\PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}
+        
+        
+        \PY{c+c1}{\PYZsh{} Invoke the above function to get our data.}
+        \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev} \PY{o}{=} \PY{n}{get\PYZus{}CIFAR10\PYZus{}data}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Train labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Validation labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}val}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}test}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dev data shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{X\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dev labels shape: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Train data shape:  (49000, 3073)
+Train labels shape:  (49000,)
+Validation data shape:  (1000, 3073)
+Validation labels shape:  (1000,)
+Test data shape:  (1000, 3073)
+Test labels shape:  (1000,)
+dev data shape:  (500, 3073)
+dev labels shape:  (500,)
+
+    \end{Verbatim}
+
+    \hypertarget{training-a-softmax-classifier.}{%
+\subsection{Training a softmax
+classifier.}\label{training-a-softmax-classifier.}}
+
+The following cells will take you through building a softmax classifier.
+You will implement its loss function, then subsequently train it with
+gradient descent. Finally, you will choose the learning rate of gradient
+descent to optimize its classification performance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{k+kn}{from} \PY{n+nn}{nndl} \PY{k}{import} \PY{n}{Softmax}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Declare an instance of the Softmax class.  }
+         \PY{c+c1}{\PYZsh{} Weights are initialized to a random value.}
+         \PY{c+c1}{\PYZsh{} Note, to keep people\PYZsq{}s first solutions consistent, we are going to use a random seed.}
+         
+         \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{num\PYZus{}classes} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{)}
+         \PY{n}{num\PYZus{}features} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         \PY{n}{softmax} \PY{o}{=} \PY{n}{Softmax}\PY{p}{(}\PY{n}{dims}\PY{o}{=}\PY{p}{[}\PY{n}{num\PYZus{}classes}\PY{p}{,} \PY{n}{num\PYZus{}features}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{softmax-loss}{%
+\paragraph{Softmax loss}\label{softmax-loss}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Implement the loss function of the softmax using a for loop over}
+        \PY{c+c1}{\PYZsh{}  the number of examples}
+        
+        \PY{n}{loss} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{loss}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2.327760702804897
+
+    \end{Verbatim}
+
+    \hypertarget{question}{%
+\subsection{Question:}\label{question}}
+
+You'll notice the loss returned by the softmax is about 2.3 (if
+implemented correctly). Why does this value make sense?
+
+    \hypertarget{answer}{%
+\subsection{Answer:}\label{answer}}
+
+When we initialize the weight matrix, it is randomly selected with
+unifrom matrix, which means the predicted probability of each class is
+also uniform distribution and approximatly equals 1/10. That means the
+cross entropy for each example is -log(0.1), which is 2.3025
+(approximatly equals to the loss).
+
+    \hypertarget{softmax-gradient}{%
+\paragraph{Softmax gradient}\label{softmax-gradient}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Calculate the gradient of the softmax loss in the Softmax class.}
+        \PY{c+c1}{\PYZsh{} For convenience, we\PYZsq{}ll write one function that computes the loss}
+        \PY{c+c1}{\PYZsh{}   and gradient together, softmax.loss\PYZus{}and\PYZus{}grad(X, y)}
+        \PY{c+c1}{\PYZsh{} You may copy and paste your loss code from softmax.loss() here, and then}
+        \PY{c+c1}{\PYZsh{}   use the appropriate intermediate values to calculate the gradient.}
+        
+        \PY{n}{loss}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{loss\PYZus{}and\PYZus{}grad}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{p}{,}\PY{n}{y\PYZus{}dev}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Compare your gradient to a gradient check we wrote. }
+        \PY{c+c1}{\PYZsh{} You should see relative gradient errors on the order of 1e\PYZhy{}07 or less if you implemented the gradient correctly.}
+        \PY{n}{softmax}\PY{o}{.}\PY{n}{grad\PYZus{}check\PYZus{}sparse}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{,} \PY{n}{grad}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+numerical: 0.811560 analytic: 0.811560, relative error: 1.287581e-09
+numerical: 0.133042 analytic: 0.133042, relative error: 4.391477e-08
+numerical: 1.459821 analytic: 1.459821, relative error: 1.281714e-10
+numerical: 0.705703 analytic: 0.705703, relative error: 1.394274e-08
+numerical: 0.516723 analytic: 0.516723, relative error: 8.749868e-08
+numerical: 1.715495 analytic: 1.715495, relative error: 1.919600e-08
+numerical: -0.336979 analytic: -0.336979, relative error: 1.138216e-07
+numerical: 0.526789 analytic: 0.526789, relative error: 1.425703e-08
+numerical: 0.398616 analytic: 0.398616, relative error: 1.296090e-08
+numerical: -3.990390 analytic: -3.990390, relative error: 1.198945e-08
+
+    \end{Verbatim}
+
+    \hypertarget{a-vectorized-version-of-softmax}{%
+\subsection{A vectorized version of
+Softmax}\label{a-vectorized-version-of-softmax}}
+
+To speed things up, we will vectorize the loss and gradient
+calculations. This will be helpful for stochastic gradient descent.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Implement softmax.fast\PYZus{}loss\PYZus{}and\PYZus{}grad which calculates the loss and gradient}
+        \PY{c+c1}{\PYZsh{}    WITHOUT using any for loops.  }
+        
+        \PY{c+c1}{\PYZsh{} Standard loss and gradient}
+        \PY{n}{tic} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{loss}\PY{p}{,} \PY{n}{grad} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{loss\PYZus{}and\PYZus{}grad}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{)}
+        \PY{n}{toc} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Normal loss / grad\PYZus{}norm: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ / }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ computed in }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{loss}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{grad}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{toc} \PY{o}{\PYZhy{}} \PY{n}{tic}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{tic} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n}{loss\PYZus{}vectorized}\PY{p}{,} \PY{n}{grad\PYZus{}vectorized} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{fast\PYZus{}loss\PYZus{}and\PYZus{}grad}\PY{p}{(}\PY{n}{X\PYZus{}dev}\PY{p}{,} \PY{n}{y\PYZus{}dev}\PY{p}{)}
+        \PY{n}{toc} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vectorized loss / grad: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ / }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ computed in }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{loss\PYZus{}vectorized}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{grad\PYZus{}vectorized}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fro}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,} \PY{n}{toc} \PY{o}{\PYZhy{}} \PY{n}{tic}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} The losses should match but your vectorized implementation should be much faster.}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{difference in loss / grad: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ /}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{loss} \PY{o}{\PYZhy{}} \PY{n}{loss\PYZus{}vectorized}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{grad} \PY{o}{\PYZhy{}} \PY{n}{grad\PYZus{}vectorized}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} You should notice a speedup with the same output.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Normal loss / grad\_norm: 2.30447519497518 / 331.2038773428697 computed in 0.16248798370361328s
+Vectorized loss / grad: 2.3044751949751823 / 331.20387734286965 computed in 0.02423405647277832s
+difference in loss / grad: -2.220446049250313e-15 /2.2241223160084674e-13 
+
+    \end{Verbatim}
+
+    \hypertarget{stochastic-gradient-descent}{%
+\subsection{Stochastic gradient
+descent}\label{stochastic-gradient-descent}}
+
+We now implement stochastic gradient descent. This uses the same
+principles of gradient descent we discussed in class, however, it
+calculates the gradient by only using examples from a subset of the
+training set (so each gradient calculation is faster).
+
+    \hypertarget{question}{%
+\subsection{Question:}\label{question}}
+
+How should the softmax gradient descent training step differ from the
+svm training step, if at all?
+
+    \hypertarget{answer}{%
+\subsection{Answer:}\label{answer}}
+
+The gradient descent training step of softmax and svm are quiet similar,
+except they use different loss functions.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Implement softmax.train() by filling in the code to extract a batch of data}
+         \PY{c+c1}{\PYZsh{} and perform the gradient step.}
+         \PY{k+kn}{import} \PY{n+nn}{time}
+         
+         
+         \PY{n}{tic} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n}{loss\PYZus{}hist} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}7}\PY{p}{,} \PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{toc} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{That took }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{toc} \PY{o}{\PYZhy{}} \PY{n}{tic}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{loss\PYZus{}hist}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration number}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Loss value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 0 / 1500: loss 2.3365926606637544
+iteration 100 / 1500: loss 2.0557222613850827
+iteration 200 / 1500: loss 2.0357745120662813
+iteration 300 / 1500: loss 1.9813348165609888
+iteration 400 / 1500: loss 1.9583142443981614
+iteration 500 / 1500: loss 1.862265307354135
+iteration 600 / 1500: loss 1.8532611454359382
+iteration 700 / 1500: loss 1.835306222372583
+iteration 800 / 1500: loss 1.829389246882764
+iteration 900 / 1500: loss 1.8992158530357484
+iteration 1000 / 1500: loss 1.97835035402523
+iteration 1100 / 1500: loss 1.8470797913532633
+iteration 1200 / 1500: loss 1.8411450268664082
+iteration 1300 / 1500: loss 1.7910402495792102
+iteration 1400 / 1500: loss 1.8705803029382257
+That took 12.624136924743652s
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{evaluate-the-performance-of-the-trained-softmax-classifier-on-the-validation-data.}{%
+\subsubsection{Evaluate the performance of the trained softmax
+classifier on the validation
+data.}\label{evaluate-the-performance-of-the-trained-softmax-classifier-on-the-validation-data.}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Implement softmax.predict() and use it to compute the training and testing error.}
+         
+         \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{training accuracy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{,} \PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{y\PYZus{}val\PYZus{}pred} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{validation accuracy: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+training accuracy: 0.3811428571428571
+validation accuracy: 0.398
+
+    \end{Verbatim}
+
+    \hypertarget{optimize-the-softmax-classifier}{%
+\subsection{Optimize the softmax
+classifier}\label{optimize-the-softmax-classifier}}
+
+You may copy and paste your optimization code from the SVM here.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{np}\PY{o}{.}\PY{n}{finfo}\PY{p}{(}\PY{n+nb}{float}\PY{p}{)}\PY{o}{.}\PY{n}{eps}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} 2.220446049250313e-16
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} YOUR CODE HERE:}
+         \PY{c+c1}{\PYZsh{}   Train the Softmax classifier with different learning rates and }
+         \PY{c+c1}{\PYZsh{}     evaluate on the validation data.}
+         \PY{c+c1}{\PYZsh{}   Report:}
+         \PY{c+c1}{\PYZsh{}     \PYZhy{} The best learning rate of the ones you tested.  }
+         \PY{c+c1}{\PYZsh{}     \PYZhy{} The best validation accuracy corresponding to the best validation error.}
+         \PY{c+c1}{\PYZsh{}}
+         \PY{c+c1}{\PYZsh{}   Select the SVM that achieved the best validation error and report}
+         \PY{c+c1}{\PYZsh{}     its error rate on the test set.}
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         
+         \PY{n}{learning\PYZus{}rates} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{5e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{5.5e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{6e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{6.5e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{7e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{7.5e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{8e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{8.3e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{8.5e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{9.5e\PYZhy{}3}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{,} \PY{l+m+mf}{5e\PYZhy{}4}\PY{p}{,} \PY{l+m+mf}{1e\PYZhy{}5}\PY{p}{]}
+         \PY{n}{training\PYZus{}accuracies} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{n}{validation\PYZus{}accuracies} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         
+         \PY{k}{for} \PY{n}{lr\PYZus{}rate} \PY{o+ow}{in} \PY{n}{learning\PYZus{}rates}\PY{p}{:}
+             \PY{n}{loss\PYZus{}hist} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}7}\PY{p}{,} \PY{n}{num\PYZus{}iters}\PY{o}{=}\PY{l+m+mi}{1500}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{y\PYZus{}train\PYZus{}pred} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+             \PY{n}{y\PYZus{}val\PYZus{}pred} \PY{o}{=} \PY{n}{softmax}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}val}\PY{p}{)}
+             \PY{n}{training\PYZus{}accuracies}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,}\PY{n}{y\PYZus{}train\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+             \PY{n}{validation\PYZus{}accuracies}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{equal}\PY{p}{(}\PY{n}{y\PYZus{}val}\PY{p}{,} \PY{n}{y\PYZus{}val\PYZus{}pred}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{p}{(}\PY{n}{best\PYZus{}val\PYZus{}acc}\PY{p}{,}\PY{n}{i}\PY{p}{)} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{p}{(}\PY{n}{v}\PY{p}{,}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{v} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{validation\PYZus{}accuracies}\PY{p}{)}\PY{p}{)}
+         \PY{n}{best\PYZus{}lr\PYZus{}rate} \PY{o}{=} \PY{n}{learning\PYZus{}rates}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}print(validation\PYZus{}accuracies)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The best learning rate is: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ , with validation accuracies: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{best\PYZus{}lr\PYZus{}rate}\PY{p}{,} \PY{n}{best\PYZus{}val\PYZus{}acc}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+         \PY{c+c1}{\PYZsh{} END YOUR CODE HERE}
+         \PY{c+c1}{\PYZsh{} ================================================================ \PYZsh{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+iteration 0 / 1500: loss 2.3272060846682603
+iteration 100 / 1500: loss 2.070796610909686
+iteration 200 / 1500: loss 1.9919267217995216
+iteration 300 / 1500: loss 1.935776136240207
+iteration 400 / 1500: loss 1.9322690223589751
+iteration 500 / 1500: loss 1.8177236818686637
+iteration 600 / 1500: loss 1.853576327586231
+iteration 700 / 1500: loss 1.8976491006525829
+iteration 800 / 1500: loss 2.0080505025566153
+iteration 900 / 1500: loss 1.7555417448535748
+iteration 1000 / 1500: loss 1.8163058236132195
+iteration 1100 / 1500: loss 1.823860682516186
+iteration 1200 / 1500: loss 1.7434754112412105
+iteration 1300 / 1500: loss 1.779670340476944
+iteration 1400 / 1500: loss 1.794696055405351
+iteration 0 / 1500: loss 2.399650633497909
+iteration 100 / 1500: loss 2.082333781114565
+iteration 200 / 1500: loss 2.0139932119600807
+iteration 300 / 1500: loss 1.9194168504289868
+iteration 400 / 1500: loss 1.9598471567748568
+iteration 500 / 1500: loss 1.8612610643110696
+iteration 600 / 1500: loss 1.8761521312750173
+iteration 700 / 1500: loss 1.8858467793551392
+iteration 800 / 1500: loss 1.867774690941385
+iteration 900 / 1500: loss 1.7990959203152037
+iteration 1000 / 1500: loss 1.7842631882822162
+iteration 1100 / 1500: loss 1.8972231910193347
+iteration 1200 / 1500: loss 1.8884990834566542
+iteration 1300 / 1500: loss 1.8264573773984498
+iteration 1400 / 1500: loss 1.8850009313051936
+iteration 0 / 1500: loss 2.2836860926612497
+iteration 100 / 1500: loss 2.0732015389645313
+iteration 200 / 1500: loss 1.9665041886832986
+iteration 300 / 1500: loss 1.9841582982965655
+iteration 400 / 1500: loss 1.8684518073284777
+iteration 500 / 1500: loss 1.8904762898800527
+iteration 600 / 1500: loss 1.8647961303110234
+iteration 700 / 1500: loss 1.8603784936579049
+iteration 800 / 1500: loss 1.8107137174881307
+iteration 900 / 1500: loss 1.9169640626981441
+iteration 1000 / 1500: loss 1.8990193137252378
+iteration 1100 / 1500: loss 1.7762519200363074
+iteration 1200 / 1500: loss 1.7969519116619148
+iteration 1300 / 1500: loss 1.9288064328429173
+iteration 1400 / 1500: loss 1.891111284585936
+iteration 0 / 1500: loss 2.380294361936287
+iteration 100 / 1500: loss 2.025975205231494
+iteration 200 / 1500: loss 1.9567470150595567
+iteration 300 / 1500: loss 1.9591635276318708
+iteration 400 / 1500: loss 1.9388790642501228
+iteration 500 / 1500: loss 1.9567058535418445
+iteration 600 / 1500: loss 1.9087589853999642
+iteration 700 / 1500: loss 1.7656864437347903
+iteration 800 / 1500: loss 1.8239893814873807
+iteration 900 / 1500: loss 1.83736670914571
+iteration 1000 / 1500: loss 1.8477694141859324
+iteration 1100 / 1500: loss 1.7589908302611759
+iteration 1200 / 1500: loss 1.832937185200401
+iteration 1300 / 1500: loss 1.8797717339767213
+iteration 1400 / 1500: loss 1.8365446033801758
+iteration 0 / 1500: loss 2.3967835046962573
+iteration 100 / 1500: loss 2.07412911255947
+iteration 200 / 1500: loss 1.9246277011926032
+iteration 300 / 1500: loss 1.919897092634978
+iteration 400 / 1500: loss 1.9137650941735853
+iteration 500 / 1500: loss 1.837791526726139
+iteration 600 / 1500: loss 1.8759851559854654
+iteration 700 / 1500: loss 1.944402430210963
+iteration 800 / 1500: loss 1.9419793530143705
+iteration 900 / 1500: loss 1.852504269389292
+iteration 1000 / 1500: loss 1.8074617965750626
+iteration 1100 / 1500: loss 1.8330311218248898
+iteration 1200 / 1500: loss 1.8832978425738742
+iteration 1300 / 1500: loss 1.9000572355646816
+iteration 1400 / 1500: loss 1.8083039904944855
+iteration 0 / 1500: loss 2.3808535045224577
+iteration 100 / 1500: loss 2.107601110683926
+iteration 200 / 1500: loss 1.9966177146588604
+iteration 300 / 1500: loss 1.9344984740359212
+iteration 400 / 1500: loss 2.004279347315757
+iteration 500 / 1500: loss 1.880587355757405
+iteration 600 / 1500: loss 1.8765466265432706
+iteration 700 / 1500: loss 1.9495325942204504
+iteration 800 / 1500: loss 1.8863211903554689
+iteration 900 / 1500: loss 1.8691306201801523
+iteration 1000 / 1500: loss 1.8156389567630997
+iteration 1100 / 1500: loss 1.8322619332223946
+iteration 1200 / 1500: loss 1.8646308166701056
+iteration 1300 / 1500: loss 1.7923621026437797
+iteration 1400 / 1500: loss 1.7711165135893998
+iteration 0 / 1500: loss 2.3127280324831143
+iteration 100 / 1500: loss 2.1108253056362094
+iteration 200 / 1500: loss 1.922413348891853
+iteration 300 / 1500: loss 1.9551410863272378
+iteration 400 / 1500: loss 1.8837385407762315
+iteration 500 / 1500: loss 1.9832562488108818
+iteration 600 / 1500: loss 1.9172198399334284
+iteration 700 / 1500: loss 1.8146996064549195
+iteration 800 / 1500: loss 1.8567724931320257
+iteration 900 / 1500: loss 1.8341454511516384
+iteration 1000 / 1500: loss 1.912205608485212
+iteration 1100 / 1500: loss 1.8353783193172601
+iteration 1200 / 1500: loss 1.7719837964860898
+iteration 1300 / 1500: loss 1.9082754021447406
+iteration 1400 / 1500: loss 1.8205917945831402
+iteration 0 / 1500: loss 2.3754248781364242
+iteration 100 / 1500: loss 1.9743661041262606
+iteration 200 / 1500: loss 2.048134762258373
+iteration 300 / 1500: loss 1.9560782949469189
+iteration 400 / 1500: loss 1.9622654399315254
+iteration 500 / 1500: loss 1.900246755563637
+iteration 600 / 1500: loss 1.836825034874451
+iteration 700 / 1500: loss 1.8328484184347553
+iteration 800 / 1500: loss 1.8166885359952447
+iteration 900 / 1500: loss 1.8327129128940802
+iteration 1000 / 1500: loss 1.8947026550601702
+iteration 1100 / 1500: loss 1.8509513965837505
+iteration 1200 / 1500: loss 1.7946688653206004
+iteration 1300 / 1500: loss 1.8852880360553526
+iteration 1400 / 1500: loss 1.8699292698147556
+iteration 0 / 1500: loss 2.310167987131231
+iteration 100 / 1500: loss 2.0916493515902816
+iteration 200 / 1500: loss 1.985229152962555
+iteration 300 / 1500: loss 1.947457299714762
+iteration 400 / 1500: loss 1.854624256720622
+iteration 500 / 1500: loss 1.9371431149247957
+iteration 600 / 1500: loss 1.8879816913972194
+iteration 700 / 1500: loss 1.897933620595165
+iteration 800 / 1500: loss 1.8395362092660688
+iteration 900 / 1500: loss 1.8534898380627767
+iteration 1000 / 1500: loss 1.757107521967238
+iteration 1100 / 1500: loss 1.780101252546394
+iteration 1200 / 1500: loss 2.011816614654444
+iteration 1300 / 1500: loss 1.801069565822652
+iteration 1400 / 1500: loss 1.785954714700731
+iteration 0 / 1500: loss 2.3785440417293584
+iteration 100 / 1500: loss 2.0309406586769727
+iteration 200 / 1500: loss 2.046097570570162
+iteration 300 / 1500: loss 1.9547911090477745
+iteration 400 / 1500: loss 1.881122802715385
+iteration 500 / 1500: loss 1.9273362607981732
+iteration 600 / 1500: loss 1.8009238188708048
+iteration 700 / 1500: loss 1.992334418163062
+iteration 800 / 1500: loss 1.8996208860930377
+iteration 900 / 1500: loss 1.9668866902512852
+iteration 1000 / 1500: loss 1.918819828893521
+iteration 1100 / 1500: loss 1.767717585912552
+iteration 1200 / 1500: loss 1.8672840353189446
+iteration 1300 / 1500: loss 1.75686982205351
+iteration 1400 / 1500: loss 1.7954653444103783
+iteration 0 / 1500: loss 2.391191346907784
+iteration 100 / 1500: loss 2.0525481343512793
+iteration 200 / 1500: loss 1.9409024306996934
+iteration 300 / 1500: loss 1.8442715443651094
+iteration 400 / 1500: loss 1.945517394692017
+iteration 500 / 1500: loss 1.9167191087258555
+iteration 600 / 1500: loss 1.8954352751160084
+iteration 700 / 1500: loss 1.9835014549309242
+iteration 800 / 1500: loss 1.8087163590756155
+iteration 900 / 1500: loss 1.7740711502047677
+iteration 1000 / 1500: loss 1.7866340276503307
+iteration 1100 / 1500: loss 1.8619213493129003
+iteration 1200 / 1500: loss 1.7636998520502418
+iteration 1300 / 1500: loss 1.836964348381631
+iteration 1400 / 1500: loss 1.7968523975162392
+iteration 0 / 1500: loss 2.403546679943377
+iteration 100 / 1500: loss 2.0886435348921655
+iteration 200 / 1500: loss 2.035338086157953
+iteration 300 / 1500: loss 1.9264723617469337
+iteration 400 / 1500: loss 1.9093646473530494
+iteration 500 / 1500: loss 1.8533837831347268
+iteration 600 / 1500: loss 1.8957682074342868
+iteration 700 / 1500: loss 1.8343423507911565
+iteration 800 / 1500: loss 1.8922249503198645
+iteration 900 / 1500: loss 1.8433992449105807
+iteration 1000 / 1500: loss 1.8609846529153213
+iteration 1100 / 1500: loss 1.8463351422051681
+iteration 1200 / 1500: loss 1.8623092534402916
+iteration 1300 / 1500: loss 1.7572522715167924
+iteration 1400 / 1500: loss 1.7939004361352382
+iteration 0 / 1500: loss 2.315583636919492
+iteration 100 / 1500: loss 1.9705528812912438
+iteration 200 / 1500: loss 2.0148606160089817
+iteration 300 / 1500: loss 1.9910339826950756
+iteration 400 / 1500: loss 1.9873403589290382
+iteration 500 / 1500: loss 1.8810894485509322
+iteration 600 / 1500: loss 1.9467590137739097
+iteration 700 / 1500: loss 1.860571926293982
+iteration 800 / 1500: loss 1.7779461475601728
+iteration 900 / 1500: loss 1.8196869376462304
+iteration 1000 / 1500: loss 1.9370261157711133
+iteration 1100 / 1500: loss 1.7892284619816894
+iteration 1200 / 1500: loss 1.8701940734050146
+iteration 1300 / 1500: loss 1.813007591447041
+iteration 1400 / 1500: loss 1.9549175867075406
+[0.407, 0.378, 0.387, 0.391, 0.386, 0.387, 0.397, 0.386, 0.387, 0.398, 0.381, 0.399, 0.376]
+The best learning rate is: 0.005 , with validation accuracies: 0.407
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
