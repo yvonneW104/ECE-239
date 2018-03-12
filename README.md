@@ -4,7 +4,7 @@
 Assignment list:
 
 
-Assignment #2
+Assignment #2 \n
 -k-Nearest neighbors
 -Support vector machine
 -Softmax classifier
