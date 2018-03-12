@@ -1,10 +1,6 @@
-#UCLA ECE 239: Neural Networks and Deep Learning
-
-
-Assignment list:
-
-
-Assignment #2 \n
+#UCLA ECE 239: Neural Networks and Deep Learning  
+Assignment list:  
+Assignment #2  
 -k-Nearest neighbors
 -Support vector machine
 -Softmax classifier
