@@ -1,9 +1,10 @@
-Assignments for UCLA ECE 239 Special Topics in Signals and Systems: Neural Networks and Deep Learning
+#UCLA ECE 239: Neural Networks and Deep Learning
+
 Assignment list:
 Assignment #2
-k-Nearest neighbors
-Support vector machine
-Softmax classifier
+>k-Nearest neighbors
+>Support vector machine
+>Softmax classifier
 Assignment #3
 2-layer neural network
 General FC neural network
